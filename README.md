@@ -107,3 +107,18 @@ In order to also use the plugin to enforce the Alfrecso license header has been 
           </dependencies>
 ...
 ```
+
+# CSV Generation for Customer Releases
+
+We provide customers with third party license information in CSV format (or sometimes xls). To convert the THIRD-PARTY.txt files
+into CSV files then this project includes a Python utility.  This can be used with a command like:
+
+```
+./thirdPartyLicenseCSVCreator.py --version 3.0.0 --project ~/projects/alfresco-elasticsearch-connector/
+```
+
+More detailed help information can be obtained with:
+
+```
+./thirdPartyLicenseCSVCreator.py --help
+```
