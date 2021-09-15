@@ -61,7 +61,7 @@ def output_to_csv(project, version, license_information):
     with open(output_file, 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(['Library Info', 'File Name', 'Package', 'License', 'URL'])
-        for jar in sorted(license_information.keys()):
+        for jar in sorted(license_information.keys(), key=str.lower):
             lib_info = license_information[jar]['maven_coordinates']
             product = project if 'product' not in license_information[jar] else license_information[jar]['product']
             lic = license_information[jar]['license']
@@ -76,7 +76,7 @@ if not os.path.exists(output_dir):
 if args.combined:
     project_name = root_dir.strip('/').split('/')[-1]
     combined_information = {}
-    for product in sorted(jars.keys()):
+    for product in sorted(jars.keys(), key=str.lower):
         license_information = jars[product]
         for jar, metadata in license_information.items():
             if jar not in combined_information:
