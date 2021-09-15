@@ -10,6 +10,7 @@ default_output_dir = script_path + '/target'
 parser = argparse.ArgumentParser(description='A script to generate CSV files containing third-party license information.',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-c', '--combined', action='store_true', help='Create a single output file containing all libraries.')
+parser.add_argument('-d', '--desired', required=False, help='An ordered list of desired licenses delimited by |', default='')
 parser.add_argument('-o', '--output', default=default_output_dir, help='The output directory (will be created if necessary)')
 parser.add_argument('-p', '--project', required=True, help='The path to the project containing THIRD-PARTY.txt files', default=argparse.SUPPRESS)
 parser.add_argument('-v', '--version', required=True, help='The product version number being released', default=argparse.SUPPRESS)
@@ -34,6 +35,14 @@ skipped_target_dirs = target_dirs.difference(licenses_dirs.keys())
 if len(skipped_target_dirs) > 0:
     print('No THIRD-PARTY.txt file found in the target directories of the following modules: {}'.format(', '.join(skipped_target_dirs)))
 
+def pick_license(licenses, desired_str):
+    """Return the first desired license that is applicable, otherwise the first license provided."""
+    desired = map(str.strip, desired_str.split('|'))
+    for desired_license in desired:
+        if desired_license in licenses:
+            return desired_license
+    return licenses[0]
+
 # Load license information for each application.
 jars = {}
 for product in licenses_dirs:
@@ -50,7 +59,7 @@ for product in licenses_dirs:
             licenses = groups.group(1)
             # Use the first license listed if there are more than one.
             if ') (' in licenses:
-                license_name = licenses[1:-1].split(') (')[0]
+                license_name = pick_license(licenses[1:-1].split(') ('), args.desired)
             else:
                 license_name = licenses[1:-1]
             jars[product][jar] = {'license': license_name, 'url': url, 'maven_coordinates': maven_coordinates}
