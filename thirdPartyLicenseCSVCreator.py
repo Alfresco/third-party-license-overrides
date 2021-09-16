@@ -58,10 +58,7 @@ for product in licenses_dirs:
             jar = '{}-{}.jar'.format(artifact_id, version)
             licenses = groups.group(1)
             # Use the first license listed if there are more than one.
-            if ') (' in licenses:
-                license_name = pick_license(licenses[1:-1].split(') ('), args.desired)
-            else:
-                license_name = licenses[1:-1]
+            license_name = pick_license(licenses[1:-1].split(') ('), args.desired)
             jars[product][jar] = {'license': license_name, 'url': url, 'maven_coordinates': maven_coordinates}
 
 def output_to_csv(project, version, license_information):
