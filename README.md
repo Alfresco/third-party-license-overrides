@@ -30,7 +30,7 @@ Example configuration for this will look like:
 
 ```
   <properties>
-    <license-maven-plugin.version>2.0.0</license-maven-plugin.version>
+    <license-maven-plugin.version>2.0.1.alfresco-1</license-maven-plugin.version>
     ...
   </properties>
 ...
