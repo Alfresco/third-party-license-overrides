@@ -7,3 +7,5 @@ Creative Commons License
 LGPL 2.1
 LGPL 2.1 or later
 The MIT License
+BSD-3-Clause
+BSD-2-Clause
