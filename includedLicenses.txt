@@ -9,5 +9,4 @@ LGPL 2.1 or later
 The MIT License
 BSD-3-Clause
 BSD-2-Clause
-BSD License
 ANTLR-PD
