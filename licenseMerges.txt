@@ -13,7 +13,7 @@ JSON|JSON License|The JSON License
 LGPL-2.0-only|GNU Library General Public License v2 only|GNU Library or Lesser General Public License version 2.0 (LGPLv2)
 LGPL-2.0-or-later|GNU Library General Public License v2 or later
 LGPL-2.1-only|GNU Lesser General Public License v2.1 only
-LGPL-2.1-or-later|GNU Lesser General Public License v2.1 or later
+LGPL-2.1-or-later|GNU Lesser General Public License v2.1 or later|GNU Library General Public License v2.1 or later
 LGPL-3.0-only|GNU Lesser General Public License v3.0 only
 LGPL-3.0-or-later|GNU Lesser General Public License v3.0 or later|Lesser General Public License v3.0 or later
 MIT|The MIT License|MIT License|MIT license|MIT License (MIT)
