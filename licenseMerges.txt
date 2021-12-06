@@ -7,3 +7,4 @@ Creative Commons License|CC0|Public Domain, per Creative Commons CC0
 LGPL 2.1|LGPL, version 2.1
 LGPL 2.1 or later|GNU Library General Public License v2.1 or later
 The MIT License|MIT License
+BSD License|HSQLDB License, a BSD open source license
