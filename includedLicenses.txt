@@ -1,12 +1,25 @@
-The Apache Software License, Version 2.0
-Common Development and Distribution License
-Eclipse Distribution License, Version 1.0
-Eclipse Public License, Version 1.0
-Eclipse Public License, Version 2.0
-Creative Commons License
-LGPL 2.1
-LGPL 2.1 or later
-The MIT License
-BSD-3-Clause
-BSD-2-Clause
 ANTLR-PD
+Apache-2.0
+BSD-2-Clause
+BSD-3-Clause
+CC0-1.0
+CDDL-1.0
+CDDL-1.1
+CPL-1.0
+EDL-1.0
+EPL-1.0
+EPL-2.0
+ICU
+JSON
+LGPL-2.0-only
+LGPL-2.0-or-later
+LGPL-2.1-only
+LGPL-2.1-or-later
+LGPL-3.0-only
+LGPL-3.0-or-later
+MIT
+MPL-1.0
+MPL-1.1
+MPL-2.0
+PostgreSQL
+Zlib
