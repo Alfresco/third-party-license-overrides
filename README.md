@@ -1,40 +1,57 @@
 # third-party-license-overrides
 
-Centralised overrides for licenses of third party libraries used in Alfresco software.  By sharing a single overrides file then corrections to
-license information can benefit all projects.
+Centralised overrides for licenses of third party libraries used in Alfresco software.  By centralising this informaton
+then corrections to license information can benefit all projects.
 
-So far the project only contains a single third party license override file for use with the license-maven-plugin.
+Currently the project is designed to be used with the [license-maven-plugin](https://www.mojohaus.org/license-maven-plugin/).
 
-The format of this file is:
+---
+**Note that this project is public to allow it to be easily accessed from local and CI builds.**
+
+---
+
+# Licence allow list
+
+The `includeLicenses.txt` file is a centralized list of licences allowed for use in Alfresco software. The format
+of the file is one license per line, and they should be arranged in alphabetical order for ease of maintenance.
+
+In future we may need more than one of these files as e.g. GPL licenses are allowed in certain products, provided
+we have had legal approval.
+
+# Licences merging
+
+The `licenseMerges.txt` file contains the canonical form for various licenses. Where possible we have used the
+[SPDX short identifier](https://spdx.org/licenses/) as the canonical form. The names for licenses are given in a
+`|`-separated list, with the canonical form at the start of the list. The licenses should be sorted alphabetically by
+canonical form. For example:
+
+```
+CPL-1.0|CPL|Common Public License
+```
+
+# License overrides
+
+The `override-THIRD-PARTY.properties` file contains corrections to the automatically identified licenses where the
+plugin has made a mistake. The format of this file is:
 
 ```
 # URL to evidence for license choice
 [groupId]--[artifactId]--[version]=[licenseChoice]
 ```
 
-for example
+For example:
 
 ```
 # https://sourceforge.net/projects/acegisecurity/
 org.acegisecurity--acegi-security--0.8.2_patched=Apache-2.0
 ```
 
-If multiple licenses are available for a third party library then only a single library should be included in this file conforming to the preferences here:
+If multiple licenses are available for a third party library then only a single library should be included in this file
+conforming to the preferences here:
 https://alfresco.atlassian.net/wiki/spaces/TECH/pages/248284005/Open+Source+Licenses+-+Approval+Matrix
 
-The libraries should be sorted alphabetically to make it easy to find them. Where possible the [SPDX short identifier](https://spdx.org/licenses/) should be used for the license.
-
-Note that this project is public to allow it to be easily accessed from local and CI builds.
-
-# included licences
-
-Centralized list on licences included/allowed in Alfresco software.
-
-NOTE: licences that are going be overridden should be present in the file
-
-# licences merges
-
-Centralized list of alias for the same licenses 
+The libraries should be sorted alphabetically to make it easy to find them. Where possible the SPDX short identifier
+should be used for the license.
 
 # Usage
 
