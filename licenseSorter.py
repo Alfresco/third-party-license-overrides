@@ -19,7 +19,7 @@ with open(includes, 'w') as f:
 with open(merges) as f:
 	lines = f.readlines()
 with open(merges, 'w') as f:
-	lines = sorted(lines, key=str.casefold)
+	lines = sorted(lines, key=lambda line: str.casefold(line.split('|')[0]))
 	for line in lines:
 		line = line.strip()
 		if line:
