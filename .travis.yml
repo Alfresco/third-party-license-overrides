@@ -1,0 +1,4 @@
+language: bash
+
+script:
+  - ./licenseSorter.py && git diff --exit-code
