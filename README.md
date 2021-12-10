@@ -129,6 +129,12 @@ In order to also use the plugin to enforce the Alfrecso license header has been 
 ...
 ```
 
+# Automated license file ordering
+
+The script `licenceSorter.py` will automatically sort the three configuration files in this repository. This will make
+it easier to find libraries and to check for consistency between different versions of the same library. The same
+script will be run as part of the build and the build will fail if a file is not sorted correctly.
+
 # CSV Generation for Customer Releases
 
 We provide customers with third party license information in CSV format (or sometimes xls). To convert the THIRD-PARTY.txt files
