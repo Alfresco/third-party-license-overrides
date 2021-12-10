@@ -1,4 +1,2 @@
-language: bash
-
-script:
-  - ./licenseSorter.py && git diff --exit-code
+import:
+  - source: Alfresco/alfresco-build-tools:.travis.pre-commit.yml@v1.1.6
