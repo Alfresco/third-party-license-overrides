@@ -1,0 +1,8 @@
+repos:
+- repo: local
+  hooks:
+  - id: formatter
+    name: Format license configuration files
+    entry: ./licenseSorter.py
+    language: python
+    verbose: true

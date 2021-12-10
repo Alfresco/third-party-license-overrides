@@ -135,6 +135,12 @@ The script `licenceSorter.py` will automatically sort the three configuration fi
 it easier to find libraries and to check for consistency between different versions of the same library. The same
 script will be run as part of the build and the build will fail if a file is not sorted correctly.
 
+This project uses [pre-commit](https://pre-commit.com/) to automatically run the sorting script before commits. To
+install pre-commit on your system see the [instructions here](https://pre-commit.com/#installation). Once you have
+pre-commit installed then you can enable it for this repository by running the following command in your local clone:
+
+```pre-commit install```
+
 # CSV Generation for Customer Releases
 
 We provide customers with third party license information in CSV format (or sometimes xls). To convert the THIRD-PARTY.txt files
