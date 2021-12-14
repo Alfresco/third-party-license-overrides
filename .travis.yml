@@ -1,2 +1,12 @@
 import:
   - source: Alfresco/alfresco-build-tools:.travis.pre-commit.yml@v1.1.6
+
+jobs:
+  include:
+    - stage: Tests
+      name: "Unit tests"
+      install:
+        - cd tests
+        - javac -d target ./org/alfresco/thirdpartylicense/ValidateProperties.java
+      script:
+        - java -cp target org.alfresco.thirdpartylicense.ValidateProperties
