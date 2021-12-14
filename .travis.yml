@@ -6,6 +6,9 @@ jobs:
     - stage: Tests
       name: "Unit tests"
       install:
+        - set -x
+        - ls
+        - pwd
         - cd tests
         - javac -d target ./org/alfresco/thirdpartylicense/ValidateProperties.java
       script:
