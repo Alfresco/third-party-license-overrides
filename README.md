@@ -92,6 +92,18 @@ Example configuration for this will look like:
 
 In particular note the reference to this project in the `overrideUrl` tag.
 
+To download the plugin then it may be necessary to also add the Alfresco plugin repository:
+
+```
+  <pluginRepositories>
+    <pluginRepository>
+      <id>alfresco-internal-plugin</id>
+      <name>Alfresco Internal Repository</name>
+      <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>
+    </pluginRepository>
+  </pluginRepositories>
+```
+
 In order to also use the plugin to enforce the Alfrecso license header has been added to the top of Java files then a second execution and a dependency can be included:
 
 ```
