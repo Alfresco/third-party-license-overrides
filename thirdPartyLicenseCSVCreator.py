@@ -3,6 +3,10 @@
 
 import argparse, csv, os, re
 
+LICENSE_SEPARATOR = '|'
+LICENSE_PREFERENCE_ORDER = ['Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause', 'MIT', 'Zlib', 'BSD-3-Clause-No-Nuclear-Warranty',
+'CC0-1.0', 'CDDL-1.0', 'CDDL-1.1', 'CPL-1.0', 'EDL-1.0', 'EPL-1.0', 'EPL-2.0', 'ANTLR-PD', 'PostgreSQL', 'JSON']
+
 script_path = os.path.dirname(os.path.realpath(__file__))
 # The default location for the  license information CSV files.
 default_output_dir = script_path + '/target'
@@ -10,7 +14,8 @@ default_output_dir = script_path + '/target'
 parser = argparse.ArgumentParser(description='A script to generate CSV files containing third-party license information.',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-c', '--combined', action='store_true', help='Create a single output file containing all libraries.')
-parser.add_argument('-d', '--desired', required=False, help='An ordered list of desired licenses delimited by |', default='')
+parser.add_argument('-d', '--desired', required=False, help='An ordered list of desired licenses delimited by |',
+        default=LICENSE_SEPARATOR.join(LICENSE_PREFERENCE_ORDER))
 parser.add_argument('-o', '--output', default=default_output_dir, help='The output directory (will be created if necessary)')
 parser.add_argument('-p', '--project', required=True, help='The path to the project containing THIRD-PARTY.txt files', default=argparse.SUPPRESS)
 parser.add_argument('-v', '--version', required=True, help='The product version number being released', default=argparse.SUPPRESS)
@@ -36,11 +41,19 @@ if len(skipped_target_dirs) > 0:
     print('No THIRD-PARTY.txt file found in the target directories of the following modules: {}'.format(', '.join(skipped_target_dirs)))
 
 def pick_license(licenses, desired_str):
-    """Return the first desired license that is applicable, otherwise the first license provided."""
-    desired = map(str.strip, desired_str.split('|'))
+    """Return the first applicable desired license, otherwise one from includedLicenses.txt, or fall back on the first license provided."""
+    # Look for a matching license in the supplied list of desired licenses.
+    desired = map(str.strip, desired_str.split(LICENSE_SEPARATOR))
     for desired_license in desired:
         if desired_license in licenses:
             return desired_license
+    # If no desired license matches then look for a license in the includedLicenses.txt file.
+    with open(script_path + '/includedLicenses.txt') as included_licenses:
+        approved_licenses = included_licenses.read().strip().split('\n')
+        for approved_license in approved_licenses:
+            if approved_license in licenses:
+                return approved_license
+    # Fall back on the first license in the list.
     return licenses[0]
 
 # Load license information for each application.
@@ -57,7 +70,6 @@ for product in licenses_dirs:
             group_id, artifact_id, version = maven_coordinates.split(':')
             jar = '{}-{}.jar'.format(artifact_id, version)
             licenses = groups.group(1)
-            # Use the first license listed if there are more than one.
             license_name = pick_license(licenses[1:-1].split(') ('), args.desired)
             jars[product][jar] = {'license': license_name, 'url': url, 'maven_coordinates': maven_coordinates}
 
