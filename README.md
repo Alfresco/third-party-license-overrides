@@ -78,7 +78,7 @@ Example configuration for this will look like:
               <configuration>
                 <failOnMissing>true</failOnMissing>
                 <excludedScopes>provided,test</excludedScopes>
-                <excludedGroups>org.alfresco</excludedGroups>
+                <excludedGroups>^(org\.alfresco|com\.alfresco|org\.activiti).*</excludedGroups>
                 <failIfWarning>true</failIfWarning>
                 <includedLicenses>https://raw.githubusercontent.com/Alfresco/third-party-license-overrides/master/includedLicenses.txt</includedLicenses>
                 <licenseMergesUrl>https://raw.githubusercontent.com/Alfresco/third-party-license-overrides/master/licenseMerges.txt</licenseMergesUrl>
