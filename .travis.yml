@@ -12,4 +12,4 @@ jobs:
         - echo -e "\n~~~ Unit tests ~~~\n"
         - java -cp target org.alfresco.thirdpartylicense.ValidateProperties
         - echo -e "\n~~~ E2E tests ~~~\n"
-        - ./test/thirdPartyLicenseCSVCreatorTests/test.sh
+        - ./thirdPartyLicenseCSVCreatorTests/test.sh
