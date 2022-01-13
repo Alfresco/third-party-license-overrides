@@ -4,9 +4,12 @@ import:
 jobs:
   include:
     - stage: Tests
-      name: "Unit tests"
+      name: "Tests"
       install:
         - cd test
         - javac -d target ./org/alfresco/thirdpartylicense/ValidateProperties.java
       script:
+        - echo -e "\n### Unit tests ###"
         - java -cp target org.alfresco.thirdpartylicense.ValidateProperties
+        - echo -e "\n### E2E tests ###"
+        - ./test/thirdPartyLicenseCSVCreatorTests/test.sh
