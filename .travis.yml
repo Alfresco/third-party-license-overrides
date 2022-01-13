@@ -9,7 +9,7 @@ jobs:
         - cd test
         - javac -d target ./org/alfresco/thirdpartylicense/ValidateProperties.java
       script:
-        - echo -e "\n### Unit tests ###"
+        - echo -e "\n~~~ Unit tests ~~~\n"
         - java -cp target org.alfresco.thirdpartylicense.ValidateProperties
-        - echo -e "\n### E2E tests ###"
+        - echo -e "\n~~~ E2E tests ~~~\n"
         - ./test/thirdPartyLicenseCSVCreatorTests/test.sh
