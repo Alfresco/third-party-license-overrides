@@ -9,6 +9,8 @@ LICENSE_PREFERENCE_ORDER = ['Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause', 'MIT',
 GENERATED_SOURCES_FILE = os.sep + os.path.join('target', 'generated-sources', 'license')
 
 script_path = os.path.dirname(os.path.realpath(__file__))
+# This should be the name of the directory "third-party-license-overrides".
+script_dir = os.path.basename(script_path)
 # The default location for the  license information CSV files.
 default_output_dir = os.path.join(script_path, 'target')
 
@@ -30,7 +32,16 @@ class MavenThirdPartyWalker:
         # License information will be read from files in these target directories.
         self.licenses_dirs = {}
         target_dirs = set()
+        # Always ignore THIRD-PARTY.txt files that are within clones of this project.
+        ignore_dirs = set()
+        if os.path.commonprefix([script_path, root_dir]) != script_path:
+            for path, dirs, files in os.walk(root_dir):
+                if script_dir in dirs:
+                    ignore_dirs.add(os.path.join(path, script_dir))
+        # Search for any THIRD-PARTY.txt files.
         for path, dirs, files in os.walk(root_dir):
+            if any([path.startswith(ignore_dir) for ignore_dir in ignore_dirs]):
+                continue
             if 'THIRD-PARTY.txt' in files and path.endswith(GENERATED_SOURCES_FILE):
                 product = path.split(os.sep)[-4]
                 self.licenses_dirs[product] = path + os.sep
