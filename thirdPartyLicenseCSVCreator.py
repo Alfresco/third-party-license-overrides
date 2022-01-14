@@ -32,12 +32,13 @@ class MavenThirdPartyWalker:
         # License information will be read from files in these target directories.
         self.licenses_dirs = {}
         target_dirs = set()
-        # Always ignore THIRD-PARTY.txt files that are within clones of this project.
+        # Always ignore THIRD-PARTY.txt files that are within clones of this project (except when running the tests).
         ignore_dirs = set()
-        if os.path.commonprefix([script_path, root_dir]) != script_path:
-            for path, dirs, files in os.walk(root_dir):
-                if script_dir in dirs:
-                    ignore_dirs.add(os.path.join(path, script_dir))
+        for path, dirs, files in os.walk(root_dir):
+            script_in_root = (os.path.commonprefix([script_path, root_dir]) == root_dir)
+            path_in_script = (os.path.commonprefix([script_path, path]) == script_path)
+            if script_dir in dirs and not (path_in_script and script_in_root):
+                ignore_dirs.add(os.path.join(path, script_dir))
         # Search for any THIRD-PARTY.txt files.
         for path, dirs, files in os.walk(root_dir):
             if any([path.startswith(ignore_dir) for ignore_dir in ignore_dirs]):

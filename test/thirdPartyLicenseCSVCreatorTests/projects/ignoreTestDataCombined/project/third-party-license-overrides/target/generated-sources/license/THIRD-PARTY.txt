@@ -1,0 +1,4 @@
+
+Lists of 2 third-party dependencies.
+     (Apache-2.0) Fake Library 3 (fake:lib:1.0 - https://example.com/unwanted)
+     (CDDL-1.0) Fake Library 4 (fake:lib:2.0 - https://example.com/unwanted)
