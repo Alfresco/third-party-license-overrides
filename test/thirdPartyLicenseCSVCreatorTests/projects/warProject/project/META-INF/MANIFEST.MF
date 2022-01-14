@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven 3.6.3
+Built-By: travis
+Build-Jdk: 11.0.2
+Specification-Title: Alfresco Share WAR
+Specification-Vendor: Alfresco Software
+Implementation-Title: Alfresco Share WAR
+Implementation-Vendor-Id: org.alfresco
+Implementation-Vendor: Alfresco Software
+Implementation-URL: http://www.alfresco.org/alfresco-share-parent/share/
+Build-Date: 2022-01-11T15:00:49Z
+Build-Number: 1140
+Implementation-Version: 14.43
+Specification-Version: 7.1.0
+
+Name: Share Libraries
+yui: 2.9.0-alfresco-20141223
+freemarker: 2.3.30
+surf: 8.18
+webscripts: 8.27
+aikau: 1.0.114
+rhino: 1.7.13
+spring: 5.3.7
+alfresco-core: 14.76
+alfresco-jlan: 7.1
+
