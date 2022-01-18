@@ -1,0 +1,3 @@
+
+List of 1 third-party dependency.
+     (Apache-2.0) librarya (librarya:librarya:1.0 - http://example.com/librarya)
