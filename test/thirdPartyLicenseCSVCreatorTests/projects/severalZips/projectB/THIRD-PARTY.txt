@@ -1,0 +1,3 @@
+
+List of 1 third-party dependency.
+     (BSD-3-Clause) libraryb (libraryb:libraryb:1.0 - http://example.com/libraryb)

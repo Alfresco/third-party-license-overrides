@@ -3,7 +3,7 @@
 
 import argparse, csv, io, os, re, zipfile
 
-LICENSE_SEPARATOR = '|'
+SEPARATOR = '|'
 LICENSE_PREFERENCE_ORDER = ['Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause', 'MIT', 'Zlib', 'BSD-3-Clause-No-Nuclear-Warranty',
 'CC0-1.0', 'CDDL-1.0', 'CDDL-1.1', 'CPL-1.0', 'EDL-1.0', 'EPL-1.0', 'EPL-2.0', 'ANTLR-PD', 'PostgreSQL', 'JSON']
 GENERATED_SOURCES_FILE = os.sep + os.path.join('target', 'generated-sources', 'license')
@@ -18,11 +18,12 @@ parser = argparse.ArgumentParser(description='A script to generate CSV files con
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-c', '--combined', action='store_true', help='Create a single output file containing all libraries.')
 parser.add_argument('-d', '--desired', required=False, help='An ordered list of desired licenses delimited by |',
-        default=LICENSE_SEPARATOR.join(LICENSE_PREFERENCE_ORDER))
+        default=SEPARATOR.join(LICENSE_PREFERENCE_ORDER))
 parser.add_argument('-o', '--output', default=default_output_dir, help='The output directory (will be created if necessary)')
 parser.add_argument('-p', '--project', required=False, help='The path to the project containing THIRD-PARTY.txt files', default=argparse.SUPPRESS)
 parser.add_argument('-v', '--version', required=True, help='The product version number being released', default=argparse.SUPPRESS)
-parser.add_argument('-z', '--zippath', required=False, help='A path to a zip file (or jar, war, etc.) to search for a THIRD-PARTY.txt file.', default=argparse.SUPPRESS)
+parser.add_argument('-z', '--zippaths', required=False,
+        help='A list of paths to zip files (or jar, war, etc.) to search for a THIRD-PARTY.txt file delimited by |', default=argparse.SUPPRESS)
 args = parser.parse_args()
 
 class MavenThirdPartyWalker:
@@ -68,43 +69,50 @@ class MavenThirdPartyWalker:
 
 
 class ZipThirdPartyWalker:
-    """A third party walker that can load THIRD-PARTY.txt files from a zip, jar, war or amp file."""
-    def __init__(self, zip_path):
-        self.zip = zipfile.ZipFile(zip_path)
-        paths = [path for path in self.zip.namelist() if path.endswith('THIRD-PARTY.txt')]
-        if len(paths) == 0:
-            print('Failed to find any files in zip {} matching THIRD-PARTY.txt'.format(zip_path))
-            exit(1)
-        if len(paths) > 1:
-            print('Multiple THIRD-PARTY.txt files found in zip - only using first: ' + paths)
-        self.path = paths[0]
+    """A third party walker that can load THIRD-PARTY.txt files from a list of zip, jar, war or amp files."""
+    def __init__(self, zip_paths):
+        self.products = []
+        self.zips = {}
+        self.paths = {}
+        for zip_path in zip_paths:
+            zip = zipfile.ZipFile(zip_path)
+            product = os.path.basename(zip.filename)
+            self.products.append(product)
+            self.zips[product] = zip
+            paths = [path for path in zip.namelist() if path.endswith('THIRD-PARTY.txt')]
+            if len(paths) == 0:
+                print('Failed to find any files in zip {} matching THIRD-PARTY.txt'.format(zip_path))
+                exit(1)
+            if len(paths) > 1:
+                print('Multiple THIRD-PARTY.txt files found in zip {} - only using first: {}'.format(zip_path, paths))
+            self.paths[product] = paths[0]
     
     def get_project(self):
-        zip_name = os.path.basename(self.zip.filename)
+        zip_name = os.path.basename(os.path.commonpath([zip.filename for zip in self.zips.values()]))
         return zip_name.split('.')[0] if '.' in zip_name else zip_name
 
     def get_products(self):
-        return [os.path.basename(self.zip.filename)]
+        return [os.path.basename(self.zips[product].filename) for product in self.products]
     
     def get_third_party_license_file(self, product):
-        return io.TextIOWrapper(self.zip.open(self.path, 'r'))
+        return io.TextIOWrapper(self.zips[product].open(self.paths[product], 'r'))
 
 
-if 'project' in dir(args) and 'zippath' in dir(args):
-    print('Only one project or zippath may be specified as the source.')
+if 'project' in dir(args) and 'zippaths' in dir(args):
+    print('Only one project or zippaths may be specified as the source.')
     exit(1)
 elif 'project' in dir(args):
     third_party_walker = MavenThirdPartyWalker(args.project)
-elif 'zippath' in dir(args):
-    third_party_walker = ZipThirdPartyWalker(args.zippath)
+elif 'zippaths' in dir(args):
+    third_party_walker = ZipThirdPartyWalker(args.zippaths.split(SEPARATOR))
 else:
-    print('A project or zippath must be specified.')
+    print('A project or zippaths must be specified.')
     exit(1)
 
 def pick_license(licenses, desired_str):
     """Return the first applicable desired license, otherwise one from includedLicenses.txt, or fall back on the first license provided."""
     # Look for a matching license in the supplied list of desired licenses.
-    desired = map(str.strip, desired_str.split(LICENSE_SEPARATOR))
+    desired = map(str.strip, desired_str.split(SEPARATOR))
     for desired_license in desired:
         if desired_license in licenses:
             return desired_license
@@ -124,7 +132,7 @@ for product in third_party_walker.get_products():
     with third_party_walker.get_third_party_license_file(product) as f:
         text = f.read()
         for line in re.split(r'[\n\r]', text):
-            if line.strip() == '' or re.match(r'Lists of [0-9]+ third-party dependencies.', line) or line == 'The project has no dependencies.':
+            if line.strip() == '' or re.match(r'Lists? of [0-9]+ third-party dependenc(ies|y).', line) or line == 'The project has no dependencies.':
                 continue
             groups = re.search(r'^\W*(\(.*\)) .* \((.*)\)$', line)
             maven_coordinates, url = groups.group(2).split(' - ')
@@ -162,7 +170,7 @@ if args.combined:
                 combined_information[jar] = metadata
                 combined_information[jar]['product'] = product
             else:
-                combined_information[jar]['product'] += '|' + product
+                combined_information[jar]['product'] += SEPARATOR + product
     output_to_csv(project_name, args.version, combined_information)
 else:
     for product, license_information in jars.items():

@@ -1,0 +1,4 @@
+Library Info,File Name,Package,License,URL
+librarya:librarya:1.0,librarya-1.0.jar,projectA.zip,Apache-2.0,http://example.com/librarya
+libraryb:libraryb:1.0,libraryb-1.0.jar,projectB.zip,BSD-3-Clause,http://example.com/libraryb
+libraryc:libraryc:1.0,libraryc-1.0.jar,projectC.zip,CDDL-1.0,http://example.com/libraryc
