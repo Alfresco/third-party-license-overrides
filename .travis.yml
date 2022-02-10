@@ -1,6 +1,10 @@
 import:
   - source: Alfresco/alfresco-build-tools:.travis.pre-commit.yml@v1.1.6
 
+cache:
+  directories:
+    - ${HOME}/.m2/repository
+
 jobs:
   include:
     - stage: Tests
@@ -11,5 +15,8 @@ jobs:
       script:
         - echo -e "\n~~~ Unit tests ~~~\n"
         - java -cp target org.alfresco.thirdpartylicense.ValidateProperties
-        - echo -e "\n~~~ E2E tests ~~~\n"
+        - echo -e "\n~~~ Script E2E tests ~~~\n"
         - ./thirdPartyLicenseCSVCreatorTests/test.sh
+        - echo -e "\n~~~ Plugin E2E tests ~~~\n"
+        - cd pluginE2ETests
+        - mvn clean install

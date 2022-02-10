@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+    <groupId>org.alfresco</groupId>
+    <artifactId>test-license-plugin-e2e</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Test License Plugin E2E</name>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>alfresco-internal-plugin</id>
+            <name>Alfresco Internal Repository</name>
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <properties>
+        <license-maven-plugin.version>2.0.1.alfresco-1</license-maven-plugin.version>
+    </properties>
+    <dependencies>
+        <!-- A library with a license handled by the merges file. -->
+        <!-- "The BSD 3-Clause License (BSD3)" -> "BSD-3-Clause" -->
+        <dependency>
+            <groupId>com.adobe.xmp</groupId>
+            <artifactId>xmpcore</artifactId>
+            <version>6.1.11</version>
+        </dependency>
+        <!-- A library mentioned in the override file. -->
+        <dependency>
+            <groupId>xpp3</groupId>
+            <artifactId>xpp3</artifactId>
+            <version>1.1.4c</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${license-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>third-party-licenses</id>
+                        <goals>
+                            <goal>add-third-party</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <failOnMissing>true</failOnMissing>
+                            <excludedScopes>provided,test</excludedScopes>
+                            <excludedGroups>^(org\.alfresco|com\.alfresco|org\.activiti|org\.gytheio).*</excludedGroups>
+                            <failIfWarning>true</failIfWarning>
+                            <!-- Building this project will fail if there is a syntax error in one of these files. -->
+                            <includedLicenses>file:../../includedLicenses.txt</includedLicenses>
+                            <licenseMergesUrl>file:../../licenseMerges.txt</licenseMergesUrl>
+                            <overrideUrl>file:../../override-THIRD-PARTY.properties</overrideUrl>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
