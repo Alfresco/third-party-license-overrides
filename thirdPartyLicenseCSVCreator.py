@@ -134,7 +134,7 @@ for product in third_party_walker.get_products():
         for line in re.split(r'[\n\r]', text):
             if line.strip() == '' or re.match(r'Lists? of [0-9]+ third-party dependenc(ies|y).', line) or line == 'The project has no dependencies.':
                 continue
-            groups = re.search(r'^\W*(\(.*\)) .* \((.*)\)$', line)
+            groups = re.search(r'^\s*(\(.*\)) .* \((.*)\)$', line)
             maven_coordinates, url = groups.group(2).split(' - ')
             group_id, artifact_id, version = maven_coordinates.split(':')
             jar = '{}-{}.jar'.format(artifact_id, version)

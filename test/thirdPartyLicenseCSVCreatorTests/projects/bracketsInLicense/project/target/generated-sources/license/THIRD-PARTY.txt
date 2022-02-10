@@ -1,0 +1,3 @@
+
+List of 1 third-party dependency.
+     ((MIT-style) netCDF C library license) CDM core library (edu.ucar:cdm:4.5.5 - http://www.unidata.ucar.edu/software/netcdf-java/documentation.htm)
