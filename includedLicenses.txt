@@ -3,6 +3,7 @@ Apache-2.0
 BSD-2-Clause
 BSD-3-Clause
 BSD-3-Clause-No-Nuclear-Warranty
+BSD-Variant-Extreme-Lab
 CC0-1.0
 CDDL-1.0
 CDDL-1.1
@@ -23,5 +24,6 @@ MPL-1.0
 MPL-1.1
 MPL-2.0
 PostgreSQL
+Public-Domain
 WTFPL
 Zlib
