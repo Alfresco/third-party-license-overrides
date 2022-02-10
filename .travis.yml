@@ -1,6 +1,10 @@
 import:
   - source: Alfresco/alfresco-build-tools:.travis.pre-commit.yml@v1.1.6
 
+cache:
+  directories:
+    - ${HOME}/.m2/repository
+
 jobs:
   include:
     - stage: Tests
