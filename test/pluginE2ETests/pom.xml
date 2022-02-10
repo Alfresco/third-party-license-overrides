@@ -6,6 +6,13 @@
     <artifactId>test-license-plugin-e2e</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>Test License Plugin E2E</name>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>alfresco-internal-plugin</id>
+            <name>Alfresco Internal Repository</name>
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>
+        </pluginRepository>
+    </pluginRepositories>
     <properties>
         <license-maven-plugin.version>2.0.1.alfresco-1</license-maven-plugin.version>
     </properties>
