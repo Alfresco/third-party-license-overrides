@@ -3,7 +3,6 @@ Apache-2.0
 BSD-2-Clause
 BSD-3-Clause
 BSD-3-Clause-No-Nuclear-Warranty
-BSD-Variant-Extreme-Lab
 CC-BY-2.5
 CC0-1.0
 CDDL-1.0
@@ -29,4 +28,5 @@ PostgreSQL
 Public-Domain
 UPL-1.0
 WTFPL
+xpp
 Zlib
