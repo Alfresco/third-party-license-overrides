@@ -1,4 +1,5 @@
 ANTLR-PD
+Apache Variant (JDOM License)
 Apache-2.0
 BSD Variant (DOM4J License)
 BSD-2-Clause
