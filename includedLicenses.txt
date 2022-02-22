@@ -1,5 +1,7 @@
 ANTLR-PD
+Apache Variant (JDOM License)
 Apache-2.0
+BSD Variant (dom4j License)
 BSD-2-Clause
 BSD-3-Clause
 BSD-3-Clause-No-Nuclear-Warranty
@@ -26,6 +28,8 @@ MPL-1.1
 MPL-2.0
 PostgreSQL
 Public-Domain
+Unidata
+UnRAR
 UPL-1.0
 WTFPL
 xpp
