@@ -26,6 +26,7 @@ MPL-1.1
 MPL-2.0
 PostgreSQL
 Public-Domain
+Unidata
 UPL-1.0
 WTFPL
 xpp
