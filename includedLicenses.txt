@@ -27,6 +27,7 @@ MPL-2.0
 PostgreSQL
 Public-Domain
 Unidata
+UnRar
 UPL-1.0
 WTFPL
 xpp

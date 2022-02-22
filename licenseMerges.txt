@@ -28,6 +28,7 @@ Oracle-FUTC|Oracle Free Use Terms and Conditions|Oracle Free Use Terms and Condi
 PostgreSQL|PostgreSQL License
 Public-Domain|PD|Public Domain
 Unidata|(MIT-style) netCDF C library license
+UnRar|UnRar License
 UPL-1.0|Universal Permissive License, Version 1.0
 W3C|The W3C License|The W3C Software License
 WTFPL|WTF
