@@ -1,5 +1,6 @@
 ANTLR-PD
 Apache-2.0
+BSD Variant (DOM4J License)
 BSD-2-Clause
 BSD-3-Clause
 BSD-3-Clause-No-Nuclear-Warranty
