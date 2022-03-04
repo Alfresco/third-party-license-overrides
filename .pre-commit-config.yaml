@@ -3,6 +3,6 @@ repos:
   hooks:
   - id: formatter
     name: Format license configuration files
-    entry: ./licenseSorter.py
+    entry: ./licenseProcessor.py
     language: python
     verbose: true
