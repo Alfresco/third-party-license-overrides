@@ -1,0 +1,40 @@
+ANTLR-PD
+Apache Variant (JDOM License)
+Apache-2.0
+Aspose EULA
+BSD Variant (dom4j License)
+BSD Variant (FreeMarker License)
+BSD-2-Clause
+BSD-3-Clause
+BSD-3-Clause-No-Nuclear-Warranty
+CC-BY-2.5
+CC0-1.0
+CDDL-1.0
+CDDL-1.1
+CPL-1.0
+EDL-1.0
+Elastic-2.0
+EPL-1.0
+EPL-2.0
+GeoAPI
+GOLICENSE
+ICU
+JSON
+LGPL-2.0-only
+LGPL-2.0-or-later
+LGPL-2.1-only
+LGPL-2.1-or-later
+LGPL-3.0-only
+LGPL-3.0-or-later
+MIT
+MPL-1.0
+MPL-1.1
+MPL-2.0
+PostgreSQL
+Public-Domain
+Unidata
+UnRAR
+UPL-1.0
+WTFPL
+xpp
+Zlib
