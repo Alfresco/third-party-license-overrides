@@ -20,7 +20,9 @@ jobs:
       - uses: actions/checkout@v3
       - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v1.35.0
       - name: "Compile"
-        run: javac -d target ./test/org/alfresco/thirdpartylicense/ValidateProperties.java
+        run: |
+          cd test
+          javac -d target ./org/alfresco/thirdpartylicense/ValidateProperties.java
       - name: "Run tests"
         run: |
           cd test
