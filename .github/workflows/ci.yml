@@ -23,10 +23,11 @@ jobs:
         run: javac -d target ./test/org/alfresco/thirdpartylicense/ValidateProperties.java
       - name: "Run tests"
         run: |
+          cd test
           echo -e "\n~~~ Unit tests ~~~\n"
           java -cp target org.alfresco.thirdpartylicense.ValidateProperties
           echo -e "\n~~~ Script E2E tests ~~~\n"
-          ./test/thirdPartyLicenseCSVCreatorTests/test.sh
+          ./thirdPartyLicenseCSVCreatorTests/test.sh
           echo -e "\n~~~ Plugin E2E tests ~~~\n"
-          cd test/pluginE2ETests
+          cd pluginE2ETests
           mvn clean install
