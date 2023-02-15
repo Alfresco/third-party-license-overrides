@@ -1,0 +1,32 @@
+name: Third-party License Overrides CI
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  pre_commit:
+    name: "pre-commit"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@v1.35.0
+
+  tests:
+    name: "Tests"
+    runs-on: ubuntu-latest
+    needs: [ pre_commit ]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v1.35.0
+      - name: "Compile"
+        run: javac -d target ./org/alfresco/thirdpartylicense/ValidateProperties.java
+      - name: "Run tests"
+        run: |
+          echo -e "\n~~~ Unit tests ~~~\n"
+          java -cp target org.alfresco.thirdpartylicense.ValidateProperties
+          echo -e "\n~~~ Script E2E tests ~~~\n"
+          ./thirdPartyLicenseCSVCreatorTests/test.sh
+          echo -e "\n~~~ Plugin E2E tests ~~~\n"
+          cd pluginE2ETests
+          mvn clean install
