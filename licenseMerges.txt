@@ -20,7 +20,7 @@ ICU|Unicode/ICU License
 JSON|JSON License|The JSON License
 LGPL-2.0-only|GNU Lesser General Public License, Version 2.0|GNU Library General Public License v2 only|GNU Library or Lesser General Public License version 2.0 (LGPLv2)|LGPL 2.0|LGPL-2.0
 LGPL-2.0-or-later|GNU Library General Public License v2 or later|LGPL 2.0 or later
-LGPL-2.1-only|GNU Lesser General Public License v2.1 only|GNU Lesser General Public License Version 2.1, February 1999|GNU Lesser General Public License, Version 2.1|LGPL 2.1|LGPL, version 2.1|LGPL-2.1|lgpl_v2_1
+LGPL-2.1-only|GNU Lesser General Public License v2.1 only|GNU Lesser General Public License Version 2.1, February 1999|GNU LESSER GENERAL PUBLIC LICENSE Version 2.1, February 1999|GNU Lesser General Public License, Version 2.1|LGPL 2.1|LGPL, version 2.1|LGPL-2.1|lgpl_v2_1
 LGPL-2.1-or-later|GNU Lesser General Public License (LGPL), version 2.1 or later|GNU Lesser General Public License v2.1 or later|GNU Library General Public License v2.1 or later|LGPL 2.1 or later
 LGPL-3.0-only|GNU Lesser General Public License v3.0 only|LGPL 3|LGPL 3.0|LGPL-3.0
 LGPL-3.0-or-later|GNU Lesser General Public License v3.0 or later|GNU Lesser General Public License, Version 3.0|Lesser General Public License v3.0 or later|Lesser General Public License, version 3 or greater
