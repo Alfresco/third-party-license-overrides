@@ -3,7 +3,6 @@ Apache Variant (JDOM License)
 Apache-2.0
 Aspose EULA
 BSD Variant (dom4j License)
-Plexus (dom4j License)
 BSD Variant (FreeMarker License)
 BSD-2-Clause
 BSD-3-Clause
@@ -32,6 +31,7 @@ MIT-0
 MPL-1.0
 MPL-1.1
 MPL-2.0
+Plexus (dom4j License)
 PostgreSQL
 Public-Domain
 Unidata
