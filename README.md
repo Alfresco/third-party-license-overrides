@@ -10,6 +10,9 @@ Currently the project is designed to be used with the [license-maven-plugin](htt
 
 ---
 
+> ⚠ **NOTE:**
+> After updating this repository, give it a few minutes before re-running a build that was previously failing due to a forbidden or unknown license, as it takes some time for the raw GitHub files cache to be invalidated.
+
 # Licence allow list
 
 The `includeLicenses.txt` file is a centralized list of licences allowed for use in Alfresco software. The format
@@ -59,7 +62,7 @@ Example configuration for this will look like:
 
 ```
   <properties>
-    <license-maven-plugin.version>2.0.1</license-maven-plugin.version>
+    <license-maven-plugin.version>2.1.0</license-maven-plugin.version>
     ...
   </properties>
 ...
