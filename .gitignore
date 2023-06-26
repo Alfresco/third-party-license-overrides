@@ -2,3 +2,4 @@
 *.class
 actual
 project.war
+.idea
