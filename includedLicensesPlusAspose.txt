@@ -5,6 +5,7 @@ Apache-2.0
 Aspose EULA
 BSD Variant (dom4j License)
 BSD Variant (FreeMarker License)
+BSD Variant (JCraft License)
 BSD-2-Clause
 BSD-3-Clause
 BSD-3-Clause-No-Nuclear-Warranty
