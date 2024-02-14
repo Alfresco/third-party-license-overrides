@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 
 includes = 'includedLicenses.txt'
-extra_includes = {'includedLicensesPlusAspose.txt': ['Aspose EULA']}
+extra_includes = {
+  'includedLicensesPlusAspose.txt': ['Aspose EULA'],
+  'includedLicensesPlusNashorn.txt': ['GPL-2.0-only (from Nashorn)']
+}
 merges = 'licenseMerges.txt'
 overrides = 'override-THIRD-PARTY.properties'
 
