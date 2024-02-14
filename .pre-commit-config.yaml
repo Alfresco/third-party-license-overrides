@@ -6,3 +6,5 @@ repos:
     entry: ./licenseProcessor.py
     language: python
     verbose: true
+    exclude: ''
+    always_run: true
