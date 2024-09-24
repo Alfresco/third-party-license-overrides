@@ -10,15 +10,15 @@ jobs:
     name: "pre-commit"
     runs-on: ubuntu-latest
     steps:
-      - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@v1.35.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@v7.0.0
 
   tests:
     name: "Tests"
     runs-on: ubuntu-latest
     needs: [ pre_commit ]
     steps:
-      - uses: actions/checkout@v3
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v1.35.0
+      - uses: actions/checkout@v4
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v7.0.0
       - name: "Compile"
         run: |
           cd test
