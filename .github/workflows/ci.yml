@@ -18,7 +18,7 @@ jobs:
     needs: [ pre_commit ]
     steps:
       - uses: actions/checkout@v4
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v7.0.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v8.20.0
       - name: "Compile"
         run: |
           cd test
