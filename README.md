@@ -13,6 +13,68 @@ Currently the project is designed to be used with the [license-maven-plugin](htt
 > ⚠ **NOTE:**
 > After updating this repository, give it a few minutes before re-running a build that was previously failing due to a forbidden or unknown license, as it takes some time for the raw GitHub files cache to be invalidated.
 
+# GitHub Action usage
+
+This repository is also a reusable **composite GitHub Action** (repo-as-action). It generates a
+combined third-party license CSV for a distribution from within a workflow, using the in-repo
+`thirdPartyLicenseCSVCreator.py` and override files — so consumers no longer need to `git clone` this
+repo at runtime. Pin the action by **commit SHA** (recommended) or a tag/branch `@<ref>`; pinning a SHA
+makes the script and override files immutable and the output reproducible.
+
+The action supports two modes:
+
+- **ZIP mode** — provide `distribution-zip`; the action unzips it, collects every `*.jar`, and runs the
+  creator with `--zippaths`.
+- **Project mode** — provide `project-path` (a *built* Maven checkout); the action runs the creator with
+  `--project`, scanning for `target/generated-sources/license/THIRD-PARTY.txt` files.
+
+Provide **exactly one** of `distribution-zip` or `project-path`.
+
+## Inputs
+
+| Input | Required | Default | Description |
+|---|---|---|---|
+| `distribution-zip` | one of* | `""` | Path or glob to the distribution `*.zip` (selects ZIP mode). |
+| `project-path` | one of* | `""` | Path to a built Maven project checkout (selects project mode). |
+| `version` | yes | — | Version string passed to the creator (e.g. the release version). |
+| `output-dir` | no | `deploy_dir` | Directory where the CSV is written (created if necessary). |
+| `combined` | no | `true` | Whether to pass `--combined` (single combined CSV). |
+| `project-name` | no | `""` | Overrides the project name used in the output CSV filename (keeps filenames deterministic). |
+
+\* Provide exactly one of `distribution-zip` or `project-path`.
+
+## Outputs
+
+| Output | Description |
+|---|---|
+| `csv-path` | Path to the generated combined CSV file. |
+
+## Example — ZIP mode
+
+```yaml
+- name: "Generate third-party license CSV"
+  uses: Alfresco/third-party-license-overrides@<commit-sha>  # pin by SHA; comment the version, e.g. v1.0.0
+  with:
+    distribution-zip: deploy_dir/alfresco-transform-service-distribution-*.zip
+    version: ${{ env.RELEASE_VERSION }}
+    output-dir: deploy_dir
+    project-name: transform-service-distribution
+```
+
+## Example — project mode
+
+```yaml
+- name: "Generate third-party license CSV"
+  uses: Alfresco/third-party-license-overrides@<commit-sha>  # pin by SHA; comment the version, e.g. v1.0.0
+  with:
+    project-path: ${{ github.workspace }}
+    version: ${{ env.VERSION }}
+    output-dir: deploy_dir
+```
+
+The runner needs `python3` and (for ZIP mode) `unzip`; both are present on `ubuntu-latest`. The creator
+script uses only the Python standard library, so no extra packages are required.
+
 # Licence allow list
 
 The `includeLicenses.txt` file is a centralized list of licences allowed for use in Alfresco software. The format

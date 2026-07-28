@@ -19,6 +19,9 @@ parser = argparse.ArgumentParser(description='A script to generate CSV files con
 parser.add_argument('-c', '--combined', action='store_true', help='Create a single output file containing all libraries.')
 parser.add_argument('-d', '--desired', required=False, help='An ordered list of desired licenses delimited by |',
         default=SEPARATOR.join(LICENSE_PREFERENCE_ORDER))
+parser.add_argument('-n', '--name', required=False,
+        help='Override the project name used in the combined output CSV filename (defaults to a value derived from the source).',
+        default=argparse.SUPPRESS)
 parser.add_argument('-o', '--output', default=default_output_dir, help='The output directory (will be created if necessary)')
 parser.add_argument('-p', '--project', required=False, help='The path to the project containing THIRD-PARTY.txt files', default=argparse.SUPPRESS)
 parser.add_argument('-v', '--version', required=True, help='The product version number being released', default=argparse.SUPPRESS)
@@ -161,7 +164,7 @@ output_dir = args.output
 if not os.path.exists(output_dir):
     os.mkdir(output_dir)
 if args.combined:
-    project_name = third_party_walker.get_project()
+    project_name = args.name if 'name' in dir(args) else third_party_walker.get_project()
     combined_information = {}
     for product in sorted(jars.keys(), key=str.lower):
         license_information = jars[product]
