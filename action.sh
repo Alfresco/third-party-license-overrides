@@ -31,7 +31,7 @@ command -v python3 >/dev/null 2>&1 || fail "python3 is required but was not foun
 
 mkdir -p "${output_dir}"
 
-# This action always produces a single combined CSV (one csv-path output).
+# This action always produces a single combined CSV (one csv_path output).
 args=(--version "${version}" --output "${output_dir}" --combined)
 [ -n "${project_name}" ] && args+=(--name "${project_name}")
 
@@ -84,5 +84,5 @@ while IFS= read -r line; do
   esac
 done <<< "${gen_output}"
 [ -n "${csv}" ] || fail "No CSV file was produced in '${output_dir}'."
-echo "csv-path=${csv}" >> "${GITHUB_OUTPUT}"
+echo "csv_path=${csv}" >> "${GITHUB_OUTPUT}"
 

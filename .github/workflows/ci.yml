@@ -68,8 +68,8 @@ jobs:
         if: matrix.mode == 'zip'
         run: |
           set -euo pipefail
-          csv="${{ steps.zip.outputs.csv-path }}"
-          echo "csv-path=${csv}"
+          csv="${{ steps.zip.outputs.csv_path }}"
+          echo "csv_path=${csv}"
           test -f "${csv}"
           test "$(basename "${csv}")" = "smoke-dist-9.9.9-3rd-Party-libraries.csv"
           grep -q "librarya:librarya:1.0" "${csv}"
@@ -88,8 +88,8 @@ jobs:
         if: matrix.mode == 'project'
         run: |
           set -euo pipefail
-          csv="${{ steps.project.outputs.csv-path }}"
-          echo "csv-path=${csv}"
+          csv="${{ steps.project.outputs.csv_path }}"
+          echo "csv_path=${csv}"
           test -f "${csv}"
           test "$(basename "${csv}")" = "smoke-project-9.9.9-3rd-Party-libraries.csv"
 

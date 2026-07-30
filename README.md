@@ -42,13 +42,13 @@ Provide **exactly one** of `distribution-zip` or `project-path`.
 
 \* Provide exactly one of `distribution-zip` or `project-path`.
 
-The action always generates a **single combined CSV** (equivalent to the creator's `--combined`) and returns its path via the `csv-path` output.
+The action always generates a **single combined CSV** (equivalent to the creator's `--combined`) and returns its path via the `csv_path` output.
 
 ## Outputs
 
 | Output | Description |
 |---|---|
-| `csv-path` | Path to the generated combined CSV file. |
+| `csv_path` | Path to the generated combined CSV file. |
 
 ## Example — ZIP mode
 

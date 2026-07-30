@@ -23,9 +23,9 @@ inputs:
     default: ""
 
 outputs:
-  csv-path:
+  csv_path:
     description: "Path to the generated combined CSV file."
-    value: ${{ steps.generate.outputs.csv-path }}
+    value: ${{ steps.generate.outputs.csv_path }}
 
 runs:
   using: "composite"
