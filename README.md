@@ -38,10 +38,11 @@ Provide **exactly one** of `distribution-zip` or `project-path`.
 | `project-path` | one of* | `""` | Path to a built Maven project checkout (selects project mode). |
 | `version` | yes | — | Version string passed to the creator (e.g. the release version). |
 | `output-dir` | no | `deploy_dir` | Directory where the CSV is written (created if necessary). |
-| `combined` | no | `true` | Whether to pass `--combined` (single combined CSV). |
 | `project-name` | no | `""` | Overrides the project name used in the output CSV filename (keeps filenames deterministic). |
 
 \* Provide exactly one of `distribution-zip` or `project-path`.
+
+The action always generates a **single combined CSV** (equivalent to the creator's `--combined`) and returns its path via the `csv-path` output.
 
 ## Outputs
 

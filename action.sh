@@ -12,7 +12,6 @@ distribution_zip="${INPUT_DISTRIBUTION_ZIP:-}"
 project_path="${INPUT_PROJECT_PATH:-}"
 version="${INPUT_VERSION:-}"
 output_dir="${INPUT_OUTPUT_DIR:-deploy_dir}"
-combined="${INPUT_COMBINED:-true}"
 project_name="${INPUT_PROJECT_NAME:-}"
 
 fail() {
@@ -32,8 +31,8 @@ command -v python3 >/dev/null 2>&1 || fail "python3 is required but was not foun
 
 mkdir -p "${output_dir}"
 
-args=(--version "${version}" --output "${output_dir}")
-[ "${combined}" = "true" ] && args+=(--combined)
+# This action always produces a single combined CSV (one csv-path output).
+args=(--version "${version}" --output "${output_dir}" --combined)
 [ -n "${project_name}" ] && args+=(--name "${project_name}")
 
 tmp=""

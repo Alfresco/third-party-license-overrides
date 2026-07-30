@@ -17,10 +17,6 @@ inputs:
     description: "Directory where the combined CSV is written (created if necessary)."
     required: false
     default: "deploy_dir"
-  combined:
-    description: "Whether to pass --combined to the creator (single combined CSV)."
-    required: false
-    default: "true"
   project-name:
     description: "Optional override for the project name used in the output CSV filename (keeps filenames deterministic)."
     required: false
@@ -42,7 +38,6 @@ runs:
         INPUT_PROJECT_PATH: ${{ inputs.project-path }}
         INPUT_VERSION: ${{ inputs.version }}
         INPUT_OUTPUT_DIR: ${{ inputs.output-dir }}
-        INPUT_COMBINED: ${{ inputs.combined }}
         INPUT_PROJECT_NAME: ${{ inputs.project-name }}
       run: bash "${GITHUB_ACTION_PATH}/action.sh"
 
