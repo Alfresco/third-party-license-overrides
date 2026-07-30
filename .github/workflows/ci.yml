@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ pre_commit ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v8.20.0
       - name: "Compile"
         run: |
@@ -43,7 +43,7 @@ jobs:
       matrix:
         mode: [ zip, project ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       # ZIP mode: build a tiny distribution ZIP containing a jar with a THIRD-PARTY.txt.
       - name: "Prepare ZIP-mode fixture"
