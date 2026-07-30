@@ -43,8 +43,18 @@ trap cleanup EXIT
 if [ -n "${distribution_zip}" ]; then
   # ZIP mode: unzip, then collect every jar for --zippaths.
   command -v unzip >/dev/null 2>&1 || fail "unzip is required for ZIP mode but was not found on PATH."
-  zip="$(ls -1 ${distribution_zip} 2>/dev/null | head -1 || true)"
-  [ -n "${zip}" ] || fail "No distribution ZIP matched '${distribution_zip}'."
+
+  # Resolve the glob explicitly (no `ls` parsing) and require exactly one match.
+  shopt -s nullglob
+  matches=( ${distribution_zip} )
+  shopt -u nullglob
+  if [ "${#matches[@]}" -eq 0 ]; then
+    fail "No distribution ZIP matched '${distribution_zip}'."
+  elif [ "${#matches[@]}" -gt 1 ]; then
+    fail "Multiple distribution ZIPs matched '${distribution_zip}': ${matches[*]}"
+  fi
+  zip="${matches[0]}"
+  [ -f "${zip}" ] || fail "Distribution ZIP not found: '${zip}'."
 
   tmp="$(mktemp -d)"
   unzip -q "${zip}" -d "${tmp}"
