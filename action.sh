@@ -63,10 +63,17 @@ else
   args+=(--project "${project_path}")
 fi
 
-python3 "${creator}" "${args[@]}"
+# Run the creator and capture its output; it prints "Created <path>" per CSV.
+gen_output="$(python3 "${creator}" "${args[@]}")"
+echo "${gen_output}"
 
-# Export the generated CSV path.
-csv="$(find "${output_dir}" -maxdepth 1 -name '*.csv' | head -1 || true)"
+# Export the generated CSV path (combined mode prints a single "Created <path>" line).
+csv=""
+while IFS= read -r line; do
+  case "${line}" in
+    "Created "*) csv="${line#Created }"; break ;;
+  esac
+done <<< "${gen_output}"
 [ -n "${csv}" ] || fail "No CSV file was produced in '${output_dir}'."
 echo "csv-path=${csv}" >> "${GITHUB_OUTPUT}"
 
