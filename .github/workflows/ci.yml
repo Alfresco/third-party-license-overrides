@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ pre_commit ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - uses: Alfresco/alfresco-build-tools/.github/actions/setup-java-build@v8.20.0
       - name: "Compile"
         run: |
@@ -33,3 +33,63 @@ jobs:
           echo -e "\n~~~ Plugin E2E tests ~~~\n"
           cd pluginE2ETests
           mvn clean install
+
+  action_smoke_test:
+    name: "Action smoke test (${{ matrix.mode }} mode)"
+    runs-on: ubuntu-latest
+    needs: [ pre_commit ]
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [ zip, project ]
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      # ZIP mode: build a tiny distribution ZIP containing a jar with a THIRD-PARTY.txt.
+      - name: "Prepare ZIP-mode fixture"
+        if: matrix.mode == 'zip'
+        run: |
+          set -euo pipefail
+          mkdir -p jarcontent
+          printf '\nList of 1 third-party dependency.\n     (Apache-2.0) librarya (librarya:librarya:1.0 - http://example.com/librarya)\n' > jarcontent/THIRD-PARTY.txt
+          (cd jarcontent && zip -qr ../librarya-1.0.jar .)
+          mkdir -p dist && mv librarya-1.0.jar dist/
+          (cd dist && zip -qr ../distribution.zip .)
+      - name: "Run action (ZIP mode)"
+        if: matrix.mode == 'zip'
+        id: zip
+        uses: ./
+        with:
+          distribution-zip: distribution.zip
+          version: "9.9.9"
+          output-dir: out
+          project-name: smoke-dist
+      - name: "Verify ZIP-mode output"
+        if: matrix.mode == 'zip'
+        run: |
+          set -euo pipefail
+          csv="${{ steps.zip.outputs.csv_path }}"
+          echo "csv_path=${csv}"
+          test -f "${csv}"
+          test "$(basename "${csv}")" = "smoke-dist-9.9.9-3rd-Party-libraries.csv"
+          grep -q "librarya:librarya:1.0" "${csv}"
+
+      # Project mode: reuse an existing built-project fixture.
+      - name: "Run action (project mode)"
+        if: matrix.mode == 'project'
+        id: project
+        uses: ./
+        with:
+          project-path: test/thirdPartyLicenseCSVCreatorTests/projects/singleModuleProject/project
+          version: "9.9.9"
+          output-dir: out
+          project-name: smoke-project
+      - name: "Verify project-mode output"
+        if: matrix.mode == 'project'
+        run: |
+          set -euo pipefail
+          csv="${{ steps.project.outputs.csv_path }}"
+          echo "csv_path=${csv}"
+          test -f "${csv}"
+          test "$(basename "${csv}")" = "smoke-project-9.9.9-3rd-Party-libraries.csv"
+

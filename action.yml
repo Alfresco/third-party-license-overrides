@@ -1,0 +1,44 @@
+name: "Third-Party License CSV"
+description: "Generate a combined third-party license CSV for a distribution ZIP or a built Maven project using this repo's overrides and creator script."
+
+inputs:
+  distribution-zip:
+    description: "Path or glob to the distribution *.zip file (selects ZIP mode). Provide either this or 'project-path'."
+    required: false
+    default: ""
+  project-path:
+    description: "Path to a built Maven project checkout to scan for THIRD-PARTY.txt files (selects project mode). Provide either this or 'distribution-zip'."
+    required: false
+    default: ""
+  version:
+    description: "Version string passed to the CSV creator (e.g. the release version)."
+    required: true
+  output-dir:
+    description: "Directory where the combined CSV is written (created if necessary)."
+    required: false
+    default: "deploy_dir"
+  project-name:
+    description: "Optional override for the project name used in the output CSV filename (keeps filenames deterministic)."
+    required: false
+    default: ""
+
+outputs:
+  csv_path:
+    description: "Path to the generated combined CSV file."
+    value: ${{ steps.generate.outputs.csv_path }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Generate third-party license CSV"
+      id: generate
+      shell: bash
+      env:
+        INPUT_DISTRIBUTION_ZIP: ${{ inputs.distribution-zip }}
+        INPUT_PROJECT_PATH: ${{ inputs.project-path }}
+        INPUT_VERSION: ${{ inputs.version }}
+        INPUT_OUTPUT_DIR: ${{ inputs.output-dir }}
+        INPUT_PROJECT_NAME: ${{ inputs.project-name }}
+      run: bash "${GITHUB_ACTION_PATH}/action.sh"
+
+
